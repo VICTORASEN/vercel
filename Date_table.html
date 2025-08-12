@@ -1,0 +1,117 @@
+<html><head>
+<meta charset="UTF-8">
+<title>Calendar - No Table</title>
+<style>
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* space between calendars */
+  }
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 46px); /* same width as your <col> */
+    width: 322px; /* matches your table width */
+    border-collapse: collapse;
+  }
+  .c {
+    font-family: Calibri, sans-serif;
+    font-size: 14pt;
+    text-align: center;
+    vertical-align: bottom;
+    border: 0.5pt solid black;
+    height: 25px;
+    line-height: 25px;
+    background: rgb(255, 255, 204);
+  }
+  .m {
+    grid-column: span 7;
+    background: rgb(0, 32, 96);
+    color: white;
+    font-size: 14pt;
+    font-weight: bold;
+  }
+  .d {
+    background: red;
+    color: white;
+    font-size: 12pt;
+  }
+</style>
+</head>
+<body>
+
+<br><el>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(20, 48pt) 35pt;
+    border-collapse: collapse;
+  }
+  .cell {
+    font-family: Calibri, sans-serif;
+    font-size: 11pt;
+    padding: 1px;
+    border: none;
+    white-space: nowrap;
+  }
+  .xl43777 { background:#E26B0A; }
+  .xl43778 { color:white; font-size:10pt; font-weight:bold; font-style:italic; text-align:right; background:#E26B0A; }
+  .xl43779 { color:yellow; font-size:12pt; font-weight:bold; font-style:italic; text-align:right; background:#E26B0A; }
+  .xl43780 { color:white; font-size:8pt; font-weight:bold; font-style:italic; text-align:right; background:#E26B0A; }
+  .xl43781 { color:white; font-size:10pt; font-weight:bold; font-style:italic; text-align:left; background:#E26B0A; }
+  .xl43782 { color:white; font-size:9pt; font-weight:bold; font-style:italic; vertical-align:middle; background:#E26B0A; white-space:normal; }
+  .xl43783 { color:white; font-size:10pt; font-weight:bold; font-style:italic; text-align:right; vertical-align:middle; background:#E26B0A; }
+  .xl43784 { color:black; font-size:12pt; font-weight:bold; text-align:left; background:#974706; }
+  .xl43785 { color:black; font-size:12pt; font-weight:bold; text-align:left; background:#974706; }
+  .xl43786 { color:yellow; font-weight:bold; font-style:italic; text-align:left; vertical-align:top; background:#E26B0A; }
+  .xl43787 { color:yellow; font-size:12pt; font-weight:bold; text-align:left; background:#974706; }
+  .xl43788 { color:yellow; font-weight:bold; text-align:left; background:#974706; }
+</style><div>
+
+  <div class="cell"></div>
+  <div class="cell"></div>
+  <div class="cell"></div>
+  
+
+  
+  
+  <center>&nbsp;&nbsp;<input style="grid-column: span 1; height: 100px; width: 330px; font-size: 50px; text-align: center;" vaue="" placeholder="ENTER YEAR" onkeyup="console.log()" type="number" min="1" max="9999" oninput="this.value = Math.min(this.max, Math.max(this.min, this.value));"></center>
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+</div>
+
+
+
+</el><br><button style="padding: 20px;"><div class="wrapper">
+
+  <span id="m0" class="calendar"></span>
+
+  <span class="calendar" id="m1"></span><span class="calendar" id="m2"></span><span class="calendar" id="m3"></span>
+
+</div><br><div class="wrapper">
+
+  <span class="calendar" id="m4"></span>
+
+  <span class="calendar" id="m5"></span><span class="calendar" id="m6"></span><span class="calendar" id="m7"></span>
+
+</div><br><div class="wrapper">
+
+  <span class="calendar" id="m8"></span>
+
+  <span class="calendar" id="m9"></span><span class="calendar" id="m10"></span><span class="calendar" id="m11"></span>
+
+</div></button>
+
+<script src="Date_table.js"></script>
+
+</body></html>
