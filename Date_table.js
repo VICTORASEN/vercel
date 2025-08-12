@@ -144,4 +144,8 @@ function get_month(index=0){return Object.assign(document.createElement('span'),
 //m1.outerHTML=get_month(1);
 
 
+Array(12).fill('m').map((e,i)=>document.getElementById(e+i).outerHTML=get_month(i));
+
+
+
    
