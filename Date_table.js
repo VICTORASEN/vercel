@@ -154,7 +154,7 @@ function display_numbers(a=2025){generate_tables();let b,c,d,e,f,g,h,i,j,k,l,m,n
  m=a%4;
  n=a%100;
  o=a%400;
- p=[29,28,29][[m,n,o].filter(e=>e===0).length];
+ p=[28,29,28,29][[m,n,o].filter(e=>e===0).length];
  months=[31,p,31,30,31,30,31,31,30,31,30,31];
 
 function get(index){return months.slice(0,index+1).reduce((e,e2)=>e+e2)};
@@ -178,6 +178,7 @@ display_numbers();
 
 
    
+
 
 
 
