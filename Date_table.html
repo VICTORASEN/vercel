@@ -2,8 +2,8 @@
 function get_month(index=0){ return Object.assign(document.createElement('span'),{id:'m'+index,className:'calendar',innerHTML:`<div class="c m">${['January','February','March','April','May','June','July','August','September','October','November','December'][index]}</div>`+['SUN','MON','TUE','WED','THU','FRI','SAT'].map(e=>Object.assign(document.createElement('div'),{className:'c d',innerHTML:e}).outerHTML).join('')+'<div class="c"></div>'.repeat(42)}).outerHTML }
 
 function display_numbers(a=2025){
-if(a==0){return}
 generate_tables();
+if(a==0){return}
 let b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,months,day_start;
 b=a-1;
 c=parseInt(b/4);
@@ -32,4 +32,5 @@ display_numbers();
 
 
 </body></html>
+
 
