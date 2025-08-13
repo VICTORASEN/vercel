@@ -1,5 +1,5 @@
 <html><head><meta charset="UTF-8"><title>Calendar - No Table</title><style>.wrapper{display:flex;flex-wrap:wrap;gap:20px}.calendar{display:grid;grid-template-columns:repeat(7,46px);width:322px;border-collapse:collapse}.c{font-family:Calibri,sans-serif;font-size:14pt;text-align:center;vertical-align:bottom;border:.5pt solid #000;height:25px;line-height:25px;background:#ffc}.m{grid-column:span 7;background:#002060;color:#fff;font-size:14pt;font-weight:700}.d{background:red;color:#fff;font-size:12pt}</style></head><body><br><el><style>.grid{display:grid;grid-template-columns:repeat(20,48pt) 35pt;border-collapse:collapse}.cell{font-family:Calibri,sans-serif;font-size:11pt;padding:1px;border:none;white-space:nowrap}</style><div><div class="cell"></div><div class="cell"></div><div class="cell"></div><center>  <input type="text" placeholder="ENTER YEAR" style="grid-column:span 1; height:100px; width:330px; font-size:50px; text-align:center" oninput="this.value=Number(this.value.replace(/[^0-9]/g,'').slice(0,4));display_numbers(this.value)"></center></div></el><br><center><button style="padding:20px;pointer-events:none"><div class="wrapper"><span class="calendar" id="m0"></span> <span class="calendar" id="m1"></span><span class="calendar" id="m2"></span><span class="calendar" id="m3"></span></div><br><div class="wrapper"><span class="calendar" id="m4"></span> <span class="calendar" id="m5"></span><span class="calendar" id="m6"></span><span class="calendar" id="m7"></span></div><br><div class="wrapper"><span class="calendar" id="m8"></span> <span class="calendar" id="m9"></span><span class="calendar" id="m10"></span><span class="calendar" id="m11"></span></div></button></center><script>
-function get_month(index=0){ return Object.assign(document.createElement('span'),{id:'m'+index,className:'calendar',innerHTML:`<div class="c m">${['January','February','March','April','May','June','July','August','September','October','November','December'][index]}</div>`+['SUN','MON','TUE','WED','THU','FRI','SAT'].map(e=>Object.assign(document.createElement('div'),{className:'c d',innerHTML:e}).outerHTML).join('')+'<div class="c"></div>'.repeat(42)}).outerHTML }
+function get_month(index=0){ return Object.assign(document.createElement('span'),{id:'m'+index,className:'calendar',innerHTML:`<div class="c m">${['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'][index]}</div>`+['SUN','MON','TUE','WED','THU','FRI','SAT'].map(e=>Object.assign(document.createElement('div'),{className:'c d',innerHTML:e}).outerHTML).join('')+'<div class="c"></div>'.repeat(42)}).outerHTML }
 
 function display_numbers(a=2025){
 generate_tables();
@@ -32,5 +32,6 @@ display_numbers();
 
 
 </body></html>
+
 
 
