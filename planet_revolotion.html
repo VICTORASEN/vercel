@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Planet Orbital Speeds — Canvas</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #12182e;
+      --text: #e6eefc;
+      --muted: #9fb0d0;
+      --accent: #7cc9ff;
+      --good: #7cf7a3;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      background: radial-gradient(1200px 800px at 60% 40%, #121a33 0%, #0b1020 60%);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    header {
+      display: grid; gap: 10px; align-items: center;
+      grid-template-columns: 1fr auto auto auto auto;
+      padding: 14px 16px; background: #0f1530; border-bottom: 1px solid #1f2850;
+      position: sticky; top: 0; z-index: 5;
+    }
+    header h1 { font-size: 18px; margin: 0; font-weight: 600; letter-spacing: .2px; color: var(--accent); }
+    .control { display: flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid #1f2850; padding: 8px 10px; border-radius: 14px; }
+    select, input[type="number"], input[type="range"] {
+      background: #0e1430; color: var(--text); border: 1px solid #28345f; border-radius: 10px; padding: 6px 8px; font-size: 14px;
+    }
+    label { color: var(--muted); font-size: 13px; }
+    #hud {
+      position: absolute; left: 14px; bottom: 14px; z-index: 4; background: rgba(10,14,30,.7);
+      border: 1px solid #24305c; padding: 10px 12px; border-radius: 12px; backdrop-filter: blur(6px);
+      font-size: 14px; line-height: 1.4; color: var(--text);
+    }
+    #hud .val { color: var(--good); font-weight: 600; }
+    #legend { position: absolute; right: 14px; bottom: 14px; z-index: 4; background: rgba(10,14,30,.6); border: 1px solid #24305c; padding: 8px 10px; border-radius: 12px; }
+    #legend .row { display: grid; grid-template-columns: 14px auto; gap: 10px; align-items: center; margin: 4px 0; }
+    #legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+    #wrap { position: relative; }
+    canvas { width: 100%; height: 100%; display: block; }
+    .hint { font-size: 12px; color: var(--muted); margin-left: 6px; }
+    .spacer { width: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Orbital Speeds Around the Sun — Canvas</h1>
+
+    <div class="control">
+      <label for="planetSel">Planet</label>
+      <select id="planetSel">
+        <option value="">All</option>
+        <option>Mercury</option>
+        <option>Venus</option>
+        <option>Earth</option>
+        <option>Mars</option>
+        <option>Jupiter</option>
+        <option>Saturn</option>
+        <option>Uranus</option>
+        <option>Neptune</option>
+        <option>Pluto</option>
+      </select>
+    </div>
+
+    <div class="control">
+      <label for="speedRange">Time scale</label>
+      <input id="speedRange" type="range" min="0.05" max="50" step="0.05" value="3" />
+      <span class="hint" id="speedLabel">3×</span>
+    </div>
+
+    <div class="control">
+      <input id="trails" type="checkbox" checked />
+      <label for="trails">Trails</label>
+    </div>
+
+    <div class="control">
+      <input id="labels" type="checkbox" checked />
+      <label for="labels">Labels</label>
+    </div>
+
+    <div class="spacer"></div>
+  </header>
+
+  <div id="wrap">
+    <canvas id="sky"></canvas>
+
+    <div id="hud">
+      <div><strong id="hudTitle">All planets</strong></div>
+      <div>Average orbital speed: <span class="val" id="vKms">—</span> km/s <span class="hint">(≈ <span class="val" id="vKmh">—</span> km/h)</span></div>
+      <div>Sidereal period: <span class="val" id="periodDays">—</span> days</div>
+      <div>Semi‑major axis: <span class="val" id="axisAu">—</span> AU</div>
+    </div>
+
+    <div id="legend"></div>
+  </div>
+
+  <script>
+    // Basic planetary data (mean values)
+    // periodDays: sidereal orbital period around the Sun
+    // aAu: semi-major axis in astronomical units
+    // vKms: mean orbital speed in km/s
+    const PLANETS = [
+      { name: 'Mercury', aAu: 0.387,  periodDays: 87.9691,  vKms: 47.87,  color: '#c8b08a' },
+      { name: 'Venus',   aAu: 0.723,  periodDays: 224.701,  vKms: 35.02,  color: '#f5d98b' },
+      { name: 'Earth',   aAu: 1.000,  periodDays: 365.256,  vKms: 29.78,  color: '#7cc9ff' },
+      { name: 'Mars',    aAu: 1.524,  periodDays: 686.980,  vKms: 24.07,  color: '#ff826a' },
+      { name: 'Jupiter', aAu: 5.203,  periodDays: 4332.589, vKms: 13.07,  color: '#ffd38a' },
+      { name: 'Saturn',  aAu: 9.537,  periodDays: 10759.22, vKms: 9.69,   color: '#ffe3a6' },
+      { name: 'Uranus',  aAu: 19.191, periodDays: 30688.5,  vKms: 6.81,   color: '#a4f1ff' },
+      { name: 'Neptune', aAu: 30.068, periodDays: 60182,    vKms: 5.43,   color: '#7fb0ff' },
+      { name: 'Pluto',   aAu: 39.482, periodDays: 90560,    vKms: 4.74,   color: '#bfbfbf' }, // dwarf
+    ];
+
+    const canvas = document.getElementById('sky');
+    const ctx = canvas.getContext('2d');
+
+    const hudTitle = document.getElementById('hudTitle');
+    const vKmsEl = document.getElementById('vKms');
+    const vKmhEl = document.getElementById('vKmh');
+    const periodDaysEl = document.getElementById('periodDays');
+    const axisAuEl = document.getElementById('axisAu');
+
+    const planetSel = document.getElementById('planetSel');
+    const speedRange = document.getElementById('speedRange');
+    const speedLabel = document.getElementById('speedLabel');
+    const trails = document.getElementById('trails');
+    const labels = document.getElementById('labels');
+
+    const legend = document.getElementById('legend');
+
+    // Prepare legend
+    function buildLegend() {
+      legend.innerHTML = '';
+      PLANETS.forEach(p => {
+        const row = document.createElement('div');
+        row.className = 'row';
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        dot.style.background = p.color;
+        const label = document.createElement('div');
+        label.textContent = p.name;
+        row.appendChild(dot);
+        row.appendChild(label);
+        legend.appendChild(row);
+      });
+    }
+    buildLegend();
+
+    // Resize canvas to fill available space under header
+    function resize() {
+      const rect = document.body.getBoundingClientRect();
+      const headerH = document.querySelector('header').getBoundingClientRect().height;
+      canvas.width = Math.floor(rect.width);
+      canvas.height = Math.floor(rect.height - headerH);
+      // Redraw background immediately
+      if (!trails.checked) {
+        clearSpace();
+      }
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Utility to clear background as starry space
+    function clearSpace() {
+      const { width: w, height: h } = canvas;
+      const g = ctx.createRadialGradient(w*0.6, h*0.4, Math.min(w,h)*0.1, w*0.5, h*0.5, Math.max(w,h)*0.7);
+      g.addColorStop(0, '#0b1020');
+      g.addColorStop(1, '#060913');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, w, h);
+      // subtle stars
+      const stars = Math.floor((w*h) / 35000);
+      ctx.globalAlpha = 0.7;
+      for (let i=0;i<stars;i++){
+        const x = Math.random()*w, y = Math.random()*h; const r = Math.random()*1.2;
+        ctx.fillStyle = 'white';
+        ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // Simulation state
+    const TWO_PI = Math.PI * 2;
+    const bodies = PLANETS.map(p => ({
+      ...p,
+      angle: Math.random()*TWO_PI, // start at random phase for variety
+      omega: TWO_PI / (p.periodDays * 86400), // rad per real second
+      rPx: 0, // computed each frame from scaling
+      screen: {x:0,y:0}
+    }));
+
+    let lastT = performance.now();
+    let timeScale = parseFloat(speedRange.value); // simulation speed multiplier
+
+    // Update HUD for selected planet
+    function updateHUD() {
+      const sel = planetSel.value;
+      if (!sel) {
+        hudTitle.textContent = 'All planets';
+        vKmsEl.textContent = '—';
+        vKmhEl.textContent = '—';
+        periodDaysEl.textContent = '—';
+        axisAuEl.textContent = '—';
+      } else {
+        const p = PLANETS.find(x => x.name === sel);
+        hudTitle.textContent = sel;
+        vKmsEl.textContent = p.vKms.toFixed(2);
+        vKmhEl.textContent = (p.vKms * 3600).toFixed(0);
+        periodDaysEl.textContent = p.periodDays.toLocaleString(undefined, { maximumFractionDigits: 2 });
+        axisAuEl.textContent = p.aAu;
+      }
+    }
+    updateHUD();
+
+    // Handle controls
+    planetSel.addEventListener('change', updateHUD);
+    speedRange.addEventListener('input', () => {
+      timeScale = parseFloat(speedRange.value);
+      speedLabel.textContent = timeScale.toFixed(2).replace(/\.00$/, '') + '×';
+    });
+
+    // Compute dynamic scale so Neptune fits comfortably
+    function computeScale() {
+      const { width: w, height: h } = canvas;
+      const margin = 30; // px from edge
+      const maxR = Math.min(w, h)/2 - margin;
+      const maxAu = Math.max(...PLANETS.map(p => p.aAu));
+      return maxR / maxAu; // px per AU
+    }
+
+    function drawSun(cx, cy) {
+      const r = 12;
+      // glow
+      const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 80);
+      grad.addColorStop(0, '#ffd27a');
+      grad.addColorStop(1, 'rgba(255,180,40,0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath(); ctx.arc(cx, cy, 80, 0, TWO_PI); ctx.fill();
+      // core
+      ctx.fillStyle = '#ffcc58';
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, TWO_PI); ctx.fill();
+    }
+
+    function drawOrbits(cx, cy, scalePxPerAu, highlightName) {
+      ctx.strokeStyle = '#223058';
+      ctx.lineWidth = 1;
+      bodies.forEach(b => {
+        const r = b.aAu * scalePxPerAu;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, TWO_PI);
+        ctx.globalAlpha = (highlightName && b.name !== highlightName) ? 0.35 : 0.8;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      });
+    }
+
+    function drawLabels(cx, cy, highlightName) {
+      ctx.font = '12px system-ui, -apple-system, Segoe UI, Roboto, Arial';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      bodies.forEach(b => {
+        const alpha = (highlightName && b.name !== highlightName) ? 0.5 : 0.95;
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = '#cfe2ff';
+        ctx.fillText(b.name, b.screen.x + 8, b.screen.y);
+        ctx.globalAlpha = 1;
+      });
+    }
+
+    function drawPlanet(b) {
+      ctx.fillStyle = b.color;
+      ctx.beginPath();
+      ctx.arc(b.screen.x, b.screen.y, 3.5, 0, TWO_PI);
+      ctx.fill();
+    }
+
+    function animate(now) {
+      const dt = Math.min(0.05, (now - lastT) / 1000); // clamp big tabswitch gaps
+      lastT = now;
+
+      const sel = planetSel.value || null;
+
+      // Trails handling
+      if (!trails.checked) {
+        clearSpace();
+      } else {
+        // fade old trails
+        ctx.fillStyle = 'rgba(6, 9, 19, 0.15)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      const cx = canvas.width/2;
+      const cy = canvas.height/2;
+
+      const scale = computeScale();
+
+      drawSun(cx, cy);
+      drawOrbits(cx, cy, scale, sel);
+
+      // Update and draw bodies
+      for (const b of bodies) {
+        b.angle += b.omega * dt * timeScale * 86400; // step by scaled days (omega is per second)
+        const r = b.aAu * scale;
+        b.rPx = r;
+        b.screen.x = cx + Math.cos(b.angle) * r;
+        b.screen.y = cy + Math.sin(b.angle) * r;
+      }
+
+      // draw planets (near-to-far simple sort by radius so inner on top)
+      bodies.slice().sort((a,b)=>a.rPx-b.rPx).forEach(drawPlanet);
+
+      if (labels.checked) drawLabels(cx, cy, sel);
+
+      requestAnimationFrame(animate);
+    }
+
+    // Initial paint
+    clearSpace();
+    requestAnimationFrame(animate);
+
+    // Keep HUD in sync with selection
+    planetSel.addEventListener('change', updateHUD);
+
+    // Kick one immediate HUD update for default selection
+    updateHUD();
+  </script>
+</body>
+</html>
