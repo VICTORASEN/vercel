@@ -1,6 +1,6 @@
 
 
-function isLeapYear(year){return(year%4===0&&(year%100!==0||year%400=== 0));}isLeapYear(1)
+function isLeapYear(year){return(year%4===0&&(year%100!==0||year%400===0))}
 
 ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 
@@ -223,10 +223,9 @@ Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001'
 
 function generate_is_leap_years4(year=2025){return(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001')[(year-1)%400]}
 
+function isLeapYear4(y){return(('0001'.repeat(24)+'0000').repeat(3)+'00010001')[(y-1)%400]}
 
-
-
-
+function isLeapYear(y){return(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001')[(y-1)%400]}
 
 
 
