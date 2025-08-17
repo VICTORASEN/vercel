@@ -124,7 +124,7 @@ function generate_is_leap_years(years=2025){console.log(Array(years).fill(0).map
 
 
 
-
+Object.assign(Array(10).fill(Array(5).fill('000').join(1)).join(1).split(''),{99:0}).join('')
 
 
 
