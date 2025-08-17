@@ -228,4 +228,17 @@ function isLeapYear4(y){return(('0001'.repeat(24)+'0000').repeat(3)+'00010001')[
 function isLeapYear(y){return(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001')[(y-1)%400]}
 
 
+/*
+
+Non-leap year: 365 days
+
+February 28
+
+Leap year: 366 days
+
+February 29
+
+*/
+
+['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 
