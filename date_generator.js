@@ -124,9 +124,9 @@ function generate_is_leap_years(years=2025){console.log(Array(years).fill(0).map
 
 
 
-Object.assign(Array(10).fill(Array(5).fill('000').join(1)).join(1).split(''),{99:0}).join('')
+//Array(1).map((e,i)=>(Object.assign(Array(10).fill(Array(5).fill('000').join(1)).join(1).split(''),{99:0}).join('')))
 
+//+String(i%2)
+/*get 200 leap years*/
 
-
-
-
+Array(2).fill(0).map((e,i)=>((Object.assign(Array(10).fill(Array(5).fill('000').join(1)).join(1).split(''),{99:0}).join(''))+String(i%2)))
