@@ -221,7 +221,7 @@ Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001'
 (Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001')[(2024-1)%400]
 
 
-function generate_is_leap_years4(years=2025){return(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001')[(year-1)%400]}
+function generate_is_leap_years4(year=2025){return(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001')[(year-1)%400]}
 
 
 
