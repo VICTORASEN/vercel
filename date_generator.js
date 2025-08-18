@@ -244,5 +244,7 @@ February 29
 
 function get_day_start(y=1){return new Date(`${String(y).padStart(4,'0')}-01-01T00:00:00Z`).getDay()}
 
+function start_day(y,e='1234601245602345012356013456'){return Object.assign(Array(17).fill(e),{3:e.slice(0,-12),4:e.slice(4,-16),5:e.slice(-16),8:e.slice(0,-8),9:e.slice(8),12:e.slice(0,-4),13:e.slice(-16)}).join('')[(y-1)%400]}
+
 
 
