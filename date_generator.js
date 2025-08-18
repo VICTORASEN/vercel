@@ -20,19 +20,6 @@ function get_calender(){ let d,s,l;
 d=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 s=Number(start_day(2025));
 l= isLeapYear(2025) == 1 ? 29 : 28;
-return[
-Array.from({length:31},(_,i)=>d[(s+i)%7]),
-Array.from({length:l},(_,i)=>d[(s+i+3)%7]),
-Array.from({length:31},(_,i)=>d[(s+l+i+3)%7]),
-Array.from({length:30},(_,i)=>d[(s+l+i+6)%7]),
-Array.from({length:31},(_,i)=>d[(s+l+i+1)%7]),
-Array.from({length:30},(_,i)=>d[(s+l+i+4)%7]),
-Array.from({length:31},(_,i)=>d[(s+l+i+6)%7]),
-Array.from({length:31},(_,i)=>d[(s+l+i+2)%7]),
-Array.from({length:30},(_,i)=>d[(s+l+i+5)%7]),
-Array.from({length:31},(_,i)=>d[(s+l+i+0)%7]),
-Array.from({length:30},(_,i)=>d[(s+l+i+3)%7]),
-Array.from({length:31},(_,i)=>d[(s+l+i+5)%7])
-];
+return Array.from({length:12},(_,i2)=>Array.from({length:[31,l,31,30,31,30,31,31,30,31,30,31][i2]},(_,i)=>d[(s+(i2>1?l:0)+i+[0,3,3,6,1,4,6,2,5,0,3,5][i2])%7]))
 }
 
