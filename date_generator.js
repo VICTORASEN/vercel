@@ -16,10 +16,10 @@ function start_day(y,e='1234601245602345012356013456'){return Object.assign(Arra
 
 
 
-function get_calender(){ let d,s,l;
+function get_calender(y=2025){let d,s,l;
 d=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-s=Number(start_day(2025));
-l= isLeapYear(2025) == 1 ? 29 : 28;
+s=Number(start_day(y));
+l=isLeapYear(y)==1?29:28;
 return Array.from({length:12},(_,i2)=>Array.from({length:[31,l,31,30,31,30,31,31,30,31,30,31][i2]},(_,i)=>d[(s+(i2>1?l:0)+i+[0,3,3,6,1,4,6,2,5,0,3,5][i2])%7]))
 }
 
