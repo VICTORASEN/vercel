@@ -242,3 +242,7 @@ February 29
 
 ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 
+function get_day_start(y=1){return new Date(`${String(y).padStart(4,'0')}-01-01T00:00:00Z`).getDay()}
+
+
+
