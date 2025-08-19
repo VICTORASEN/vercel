@@ -22,6 +22,6 @@ function toHijri(d, tz = 'UTC') {
 }
 toHijri(new Date(622, 6, 19), 'Asia/Riyadh')
 
-{day: 1, month: 1, year: 1}
+
 
 
