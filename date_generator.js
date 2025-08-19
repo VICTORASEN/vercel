@@ -16,7 +16,7 @@ function gregorianToHijri(date='2025-1-1') {
     'en-u-ca-islamic-umalqura-nu-latn',
     { year: 'numeric', month: 'numeric', day: 'numeric' }
   );
-  const parts = Object.fromEntries(fmt.formatToParts(d).map(p => [p.type, p.value]));return 
+  const parts = Object.fromEntries(fmt.formatToParts(d).map(p => [p.type, p.value])); 
   return {
     Year: Number(parts.year),          // e.g. 1447
     Month: Number(parts.month),        // 1..12  (Muḥarram = 1)
