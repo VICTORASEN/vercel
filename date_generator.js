@@ -10,7 +10,7 @@ return Array.from({length:12},(_,i2)=>Array.from({length:[31,l,31,30,31,30,31,31
 /* function isLeapYear(y){return(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001')[(y-1)%400]} function start_day(y,e='1234601245602345012356013456'){return Object.assign(Array(17).fill(e),{3:e.slice(0,-12),4:e.slice(4,-16),5:e.slice(-16),8:e.slice(0,-8),9:e.slice(8),12:e.slice(0,-4),13:e.slice(-16)}).join('')[(y-1)%400]} days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']; s = start_day(2025); l = isLeapYear(2025) == 1 ? 29 : 28; [ Array.from({length:31},(_,i)=>days[(s+i)%7]), Array.from({length:l},(_,i)=>days[(s+i+31)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31)%7]), Array.from({length:30},(_,i)=>days[(s+l+i+31+31)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31+31+30)%7]), Array.from({length:30},(_,i)=>days[(s+l+i+31+31+30+31)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31+31+30+31+30)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31+31+30+31+30+31)%7]), Array.from({length:30},(_,i)=>days[(s+l+i+31+31+30+31+30+31+31)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31+31+30+31+30+31+31+30)%7]), Array.from({length:30},(_,i)=>days[(s+l+i+31+31+30+31+30+31+31+30+31)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31+31+30+31+30+31+31+30+31+30)%7]) ]; (31+31+30+31+30+31+31+30+31+30)%7 */
 
 
-function gregorianToHijri(date='2025-1-1') {
+function gregorianToHijri(date='622-7-19') {
   const d = (date instanceof Date) ? date : new Date(date);
   const fmt = new Intl.DateTimeFormat(
     'en-u-ca-islamic-umalqura-nu-latn',
