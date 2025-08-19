@@ -24,6 +24,16 @@ function gregorianToHijri(date='622-7-19') {
   };
 }
 
-
+function gregorianCalenderToHijri(year='622'){return[year].map(e3 =>
+  get_calender(e3) // no .slice(6)
+    .map((monthArr, i2) =>
+      monthArr.map((dayName, i) =>
+        Object.assign(
+          gregorianToHijri(`${e3}-${i2 + 1}-${i + 1}`), // proper month + day
+          { day2: dayName }
+        )
+      )
+    )
+)[0]}
 
 
