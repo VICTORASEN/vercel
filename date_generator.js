@@ -36,4 +36,5 @@ function gregorianCalenderToHijri(year='622'){return[year].map(e3 =>
     )
 )[0]}
 
+gregorianCalenderToHijri().filter(e=>!(e[0]['y']==0))
 
