@@ -7,7 +7,7 @@ l=isLeapYear(y)==1?29:28;
 return Array.from({length:12},(_,i2)=>Array.from({length:[31,l,31,30,31,30,31,31,30,31,30,31][i2]},(_,i)=>d[(s+(i2>1?l:0)+i+[0,3,3,6,1,4,6,2,5,0,3,5][i2])%7]))
 }
 
-function gregorian_days(y=2025,m=1,d=1){return BigInt((BigInt(y)-1n)/400n)*146097n+(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001').slice(0,Number(((BigInt(y)-1n)-(400n*BigInt((BigInt(y)-1n)/400n))))).split('').map(e=>Number(e)?366n:365n).reduce((p,e)=>p+e)+BigInt(get_calender(parseInt(y)).slice(parseInt(m)).flat().slice(parseInt(d)).length)}
+function gregorian_days(y=2025,m=1,d=1){ return BigInt((BigInt(y)-1n)/400n)*146097n+ (Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001') .slice(0,Number(((BigInt(y)-1n)-(400n*BigInt((BigInt(y)-1n)/400n))))) .split('').map(e=>Number(e)?366n:365n).reduce((p,e)=>p+e,0n)+ BigInt((isLeapYear(y)==1?366:365)-get_calender(y).slice(m-1).flat().slice(d-1).length)+ 1n }
 gregorian_days();
 
 
