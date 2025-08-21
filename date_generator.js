@@ -56,7 +56,7 @@ u('H4sIAAAAAAAAClWMCwoAMAhCr7Rn97/bKIs1EM0PxREQgFDehSRzgQ7cWHJsq6py0PJGPXW6zNLPz
 u('H4sIAAAAAAAACp1TARKDMAj7UlL//7edXbGUULp56h0oDSFEErxvNpIAl+vC/Rr3+17WnxG7agJXs5jt+oawsp64mPNcgOHEAQ0Dwov2bVC3ZK3B8bKaFqr/OatTTdo+1cGHoLPIRgoogU+Co4rJgvIZYDSXXXLBqGeH4rkaFUJ5BtL1eIssKnVMgj9+6eAXtu8AVh0eO+aAzhCnDgZjDUY8E2x4cWmR6zdZx3nEBo5KIVF+jPGraXba3mag0EGtZPFhDYnQ2jAkD46jUq4y8UdmxwVDDFna0exxlCy4041UubOURZVOIdNtVX7c/lJhD69+2dQ6r82pTBhBe/wBPTrxy2gHAAA=').then(e=>ds2=e.split('').map(e=>[29,30,28,31][e]).reduce((p,e,i,a)=>{if(i%12==11){p.push(a.slice(i-11,i+1))}return p},[]));
 
 
-
+/*23999,1343,1,1,1924,8,1 to  79989,1500,12,30,2077,11,16*/
 
 
 
