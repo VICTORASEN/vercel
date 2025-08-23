@@ -7,10 +7,10 @@ l=isLeapYear(y)==1?29:28;
 return Array.from({length:12},(_,i2)=>Array.from({length:[31,l,31,30,31,30,31,31,30,31,30,31][i2]},(_,i)=>d[(s+(i2>1?l:0)+i+[0,3,3,6,1,4,6,2,5,0,3,5][i2])%7]))
 }
 
-function gregorian_days(y=2025,m=1,d=1){ return BigInt((BigInt(y)-1n)/400n)*146097n+ (Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001') .slice(0,Number(((BigInt(y)-1n)-(400n*BigInt((BigInt(y)-1n)/400n))))) .split('').map(e=>Number(e)?366n:365n).reduce((p,e)=>p+e,0n)+ BigInt((isLeapYear(y)==1?366:365)-get_calender(y).slice(m-1).flat().slice(d-1).length)+ 1n }
+function gregorian_julian_day(y=2025,m=1,d=1){ return BigInt((BigInt(y)-1n)/400n)*146097n+ (Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001') .slice(0,Number(((BigInt(y)-1n)-(400n*BigInt((BigInt(y)-1n)/400n))))) .split('').map(e=>Number(e)?366n:365n).reduce((p,e)=>p+e,0n)+ BigInt((isLeapYear(y)==1?366:365)-get_calender(y).slice(m-1).flat().slice(d-1).length)+ 1n }
 gregorian_days();
 
-function gregorian_from_days(n){ n = BigInt(n); let k = n-1n; let q = k/146097n; let r = k%146097n; let y=0; let pat=(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001').split(''); for(let i=0;i<400;i++){ let days = pat[i]=='1'?366:365; if(r<days){break;} r-=BigInt(days);y++; } y += Number(q*400n)+1; let l = pat[(y-1)%400]=='1'?29:28; let mdays=[31,l,31,30,31,30,31,31,30,31,30,31]; let m=0; for(;m<12;m++){ if(r<BigInt(mdays[m])) break; r-=BigInt(mdays[m]); } let d=Number(r)+1; return [y,m+1,d]; }
+function gregorian_from_julian_day(n){ n = BigInt(n); let k = n-1n; let q = k/146097n; let r = k%146097n; let y=0; let pat=(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001').split(''); for(let i=0;i<400;i++){ let days = pat[i]=='1'?366:365; if(r<days){break;} r-=BigInt(days);y++; } y += Number(q*400n)+1; let l = pat[(y-1)%400]=='1'?29:28; let mdays=[31,l,31,30,31,30,31,31,30,31,30,31]; let m=0; for(;m<12;m++){ if(r<BigInt(mdays[m])) break; r-=BigInt(mdays[m]); } let d=Number(r)+1; return [y,m+1,d]; }
 
 
 /* function isLeapYear(y){return(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001')[(y-1)%400]} function start_day(y,e='1234601245602345012356013456'){return Object.assign(Array(17).fill(e),{3:e.slice(0,-12),4:e.slice(4,-16),5:e.slice(-16),8:e.slice(0,-8),9:e.slice(8),12:e.slice(0,-4),13:e.slice(-16)}).join('')[(y-1)%400]} days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']; s = start_day(2025); l = isLeapYear(2025) == 1 ? 29 : 28; [ Array.from({length:31},(_,i)=>days[(s+i)%7]), Array.from({length:l},(_,i)=>days[(s+i+31)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31)%7]), Array.from({length:30},(_,i)=>days[(s+l+i+31+31)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31+31+30)%7]), Array.from({length:30},(_,i)=>days[(s+l+i+31+31+30+31)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31+31+30+31+30)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31+31+30+31+30+31)%7]), Array.from({length:30},(_,i)=>days[(s+l+i+31+31+30+31+30+31+31)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31+31+30+31+30+31+31+30)%7]), Array.from({length:30},(_,i)=>days[(s+l+i+31+31+30+31+30+31+31+30+31)%7]), Array.from({length:31},(_,i)=>days[(s+l+i+31+31+30+31+30+31+31+30+31+30)%7]) ]; (31+31+30+31+30+31+31+30+31+30)%7 */
@@ -92,3 +92,7 @@ u('H4sIAAAAAAAACp1TARKDMAj7UlL//7edXbGUULp56h0oDSFEErxvNpIAl+vC/Rr3+17WnxG7agJXs
 /*23999,1343,1,1,1924,8,1 to  79989,1500,12,30,2077,11,16*/
 
 function get_hegri_julian_day(y=1343,m=1,d=1){return 23999+ds2.slice(0, y-1343).flat().reduce((p,e)=>p+e,0)+ds2[y-1343].slice(0,m-1).reduce((p,e)=>p+e,0)+d-1}
+
+
+
+JDN 1721426 = 1‑Jan‑1
