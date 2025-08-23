@@ -95,4 +95,4 @@ function get_hegri_julian_day(y=1343,m=1,d=1){return 23999+ds2.slice(0, y-1343).
 
 
 
-JDN 1721426 = 1‑Jan‑1
+/*JDN 1721426 = 1‑Jan‑1*/
