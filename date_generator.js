@@ -59,6 +59,6 @@ u('H4sIAAAAAAAACp1TARKDMAj7UlL//7edXbGUULp56h0oDSFEErxvNpIAl+vC/Rr3+17WnxG7agJXs
 
 /*23999,1343,1,1,1924,8,1 to  79989,1500,12,30,2077,11,16*/
 
-function get_hegri_julian_day(year=1343,month=1,day=1){return ds2[(-1343)+(year)].slice(0,-13+(month)).reduce((p,e)=>p+e,0)+(day)+(23999-1)}
+function get_hegri_julian_day(year=1343,month=1,day=1){return ds2[(-1343)+(year)].slice(0,-13+(month)).reduce((p,e)=>p+e,0)+(day)+(23999-1)+ds2.slice(0,(-1343)+(year)).flat().reduce((p,e)=>p+e,0)}
 
 
