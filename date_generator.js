@@ -96,3 +96,12 @@ function get_hegri_julian_day(y=1343,m=1,d=1){return 23999+ds2.slice(0, y-1343).
 
 
 /*JDN 1721426 = 1‑Jan‑1*/
+/*each 400 year cycle have 146097 days*/
+
+(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001').split('').reduce((p,e)=>p+[365,366][e],0)
+
+146097
+
+
+
+
