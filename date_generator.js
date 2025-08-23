@@ -54,7 +54,39 @@ u=async b=>new Response(new Blob([Uint8Array.from(atob(b),c=>c.charCodeAt(0))]).
 
 u('H4sIAAAAAAAAClWMCwoAMAhCr7Rn97/bKIs1EM0PxREQgFDehSRzgQ7cWHJsq6py0PJGPXW6zNLPzYNJL5Bkz9CeAAAA').then(e=>ds=e.split('').map((e,i)=>({year:1343+i,days:[353,354,355,356][Number(e)]})));
 
-u('H4sIAAAAAAAACp1TARKDMAj7UlL//7edXbGUULp56h0oDSFEErxvNpIAl+vC/Rr3+17WnxG7agJXs5jt+oawsp64mPNcgOHEAQ0Dwov2bVC3ZK3B8bKaFqr/OatTTdo+1cGHoLPIRgoogU+Co4rJgvIZYDSXXXLBqGeH4rkaFUJ5BtL1eIssKnVMgj9+6eAXtu8AVh0eO+aAzhCnDgZjDUY8E2x4cWmR6zdZx3nEBo5KIVF+jPGraXba3mag0EGtZPFhDYnQ2jAkD46jUq4y8UdmxwVDDFna0exxlCy4041UubOURZVOIdNtVX7c/lJhD69+2dQ6r82pTBhBe/wBPTrxy2gHAAA=').then(e=>ds2=e.split('').map(e=>[29,30,28,31][e]).reduce((p,e,i,a)=>{if(i%12==11){p.push(a.slice(i-11,i+1))}return p},[]));
+u('H4sIAAAAAAAACp1TARKDMAj7UlL//7edXbGUULp56h0oDSFEErxvNpIAl+vC/Rr3+17WnxG7agJXs5jt+oawsp64mPNcgOHEAQ0Dwov2bVC3ZK3B8bKaFqr/OatTTdo+1cGHoLPIRgoogU+Co4rJgvIZYDSXXXLBqGeH4rkaFUJ5BtL1eIssKnVMgj9+6eAXtu8AVh0eO+aAzhCnDgZjDUY8E2x4cWmR6zdZx3nEBo5KIVF+jPGraXba3mag0EGtZPFhDYnQ2jAkD46jUq4y8UdmxwVDDFna0exxlCy4041UubOURZVOIdNtVX7c/lJhD69+2dQ6r82pTBhBe/wBPTrxy2gHAAA=').then(e=>ds2=e.split('').map(e=>[29,30,28,31][e]).reduce((p,e,i,a)=>{if(i%12==11){p.push(a.slice(i-11,i+1))}return p},[])).then(e=>{Hijri_object=(() => {
+  let i = 4; // starting weekday index
+  const monthNames = ['Muharram','Safar','Rabiʿal-Awwal','Rabiʿal-Thani','Jumadaal-Awwal','Jumadaal-Thani','Rajab','Shaʿban','Ramadan','Shawwal','Dhual-Qiʿdah','Dhual-Hijjah'];
+  const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  const calendar = {};
+
+  ds2.forEach((yearMonths, yearIndex) => {
+    const yearNum = 1343 + yearIndex;
+    calendar[yearNum] = {};
+
+    yearMonths.forEach((monthLength, monthIndex) => {
+      const monthNum = monthIndex + 1;   // month starts from 1
+      const monthName = monthNames[monthIndex];
+
+      calendar[yearNum][monthNum] = {};  // initialize month object
+
+      for (let day = 1; day <= monthLength; day++) {
+        i = i + 1;
+        calendar[yearNum][monthNum][day] = {
+          year: yearNum,
+          weekday: weekDays[i % 7],
+          day: day,
+          month: monthNum,
+          monthName: monthName,
+          jd: 23994 + i
+        };
+      }
+    });
+  });
+
+  return calendar;
+})();})
 
 
 /*23999,1343,1,1,1924,8,1 to  79989,1500,12,30,2077,11,16*/
