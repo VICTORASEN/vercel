@@ -128,3 +128,28 @@ Hijri_to_JD()
 
 
 
+
+
+
+
+
+
+
+
+Hijri_to_JD
+  
+  =LAMBDA(y,m,d,
+    LET(
+        ds6, "bbcbbcbbbdbbbccbcbcbcbcbcbcbcacbdbbcbccbbcbbccbbcccbbcbbcbbccbcbcbcbbccadbcbcbcbbbdabcbcbccbcbbcbbcbcbcccbbcbbcbcbcbcbcbcbcbbcbcbbccbcbcbcbbcbcadbcbcbcbcbbcbccbcbcbbccbcbcbcbcbcbcbbbbcbccbccbbcbbbcbccbccbcbcbcbcbcbcbbbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbbbcbcbcbdbbbcbcbcbcbcbcbbbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbbbcbcbcbbcbbcbcbcbcbcbcbcbcbccbcbcbbbcbcbcbccbcbbcbcbcbcbcbcbbcbcbcbbccbbbcbcbcbccbbccbccbbbcbcbcbccbcbcbbcbbbcbcbcbcbcbccbcbcbcbcbcbbcbcbcbcbcbcbcbbcbccbcbcbcbbcbbccbcbcbcbbcbcbcbcbcbcbcbcbcbcbcbbccbcbbbcbbccbcbcbcbbccbcbcbcbcbbcbbcbcbcbcbcbcbcbcbcbcbbbcbcbcbbcbccbcbcbcbcbcbbccbcbcbcbcbbbcbcccbcbcbbbcbcbcbccbbcbcbbcbccbcbcbcbbbcbccbcbcbcbbcbcbcbcbcbcbcbbcbcbcbcbcbcbcbbcbbcbccbcbcbbcbcbcbccbcbcbbbcbcbccbcbcbbbcbcbccbccbbcbbbcbccbccbbcbbcbcbcbcbcbcbcbbcbcbcbcbcbcbcbbcbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbccbbcbbbcbccbccbbcbbcbbccbccbcbbbcbcbcbccbcbbcbbcbcbcbccbcbbcbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbcbccbcbbbbcbccbcccbbbbcbbccbcccbbbcbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbbcbccbcbcbbcbbcbccbcbcbbcbbcbccbccbbbcbbcbccbccbbcbbcbbccbcbcbcbcbbcbcbcbccbcbbbcbcbcbccbcbbcbbcbcbccbcbcbbcbbccbcbcbcbcbbcbcbcbcbcbcbcbbcbbccbcbccbbcbbbccbccbcbcbbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbcbcbcbcbcbbcbcbbccbcbcbcbbbcbccbccbcbbbcbbccbccbcbbbcbcbcbccbcbbcbbcbcbccbcbcbbcbbcbcbccbcbcbbcbbcbccbcbcbcbbbcbccbcbcbcbbbccbcbcbccbbbcbcbcbcbccbbcbcbbcbcbccbcbcbbbcbcbccbccbbcbbbcbccbccbbcbbbcbccbccbbcbbcbcbcbccbbcbcbbcbcbcbcbcbcbcbcbbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbccbbbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbcbcbccbbcbbcbbccbccbbcbcbbbccbccbcbbcbbcbcbcbccbcbbcbcbbcbccbcbcbbcbbcbccbcbcbcbbbcbccbccbcbbbcbbccbccbcbbcbbbccbccbcbbcbbcbcbccbcbcbbcbcbbccbcbcbcbcbbcbbcbccbcbcbbcbbcbccbccbbcbbbcbccbccbbcbbcbbccbccbbcbcbbbccbcbcbcbcbbcbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbbccbcbcbcbbcbbccbcbccbbcbbbccbccbcbcbbbcbcbccbcbcbbbcbcbccbcbcbbcbbccbcbcbcbcbbcbcbcbcbcbcbcbcbbcbbccbccbcbb",
+        n, MAX(0, (y - 1342) * 12 + m - 1),
+        chars, IF(n = 0, "", MID(ds6, SEQUENCE(1, n, 1, 1), 1)),
+        days, IF(n = 0, 0, SWITCH(chars, "a", 31, "b", 30, "c", 29, "d", 28, 0)),
+        total_days, SUM(days),
+        total_days + d + 23999 - 1
+    )
+)
+
+
+
+
+
