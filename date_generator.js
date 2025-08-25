@@ -144,6 +144,12 @@ function JD_to_Hijri(JD=23999){
 JD_to_Hijri()
 
 
+function gregorian_julian_day(y, m, d,r=1) { if (m <= 2) { y--; m += 12; } const A = Math.floor(y / 100); const B = 2 - A + Math.floor(A / 4); return BigInt(Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d + B - 1524)+BigInt(r?-2400000:0)}
+
+function gregorian_from_julian_day(J,r=1) { let Z = Number(J+r?- 2400000:0); let A = Z; let alpha, B; if (Z >= 2299161) { alpha = Math.floor((Z - 1867216.25) / 36524.25); A += 1 + alpha - Math.floor(alpha / 4); } B = A + 1524; const C = Math.floor((B - 122.1) / 365.25); const D = Math.floor(365.25 * C); const E = Math.floor((B - D) / 30.6001); const day = Math.floor(B - D - Math.floor(30.6001 * E)); const month = E < 14 ? E - 1 : E - 13; const year = month > 2 ? C - 4716 : C - 4715; return [year, month, day]; }
+
+
+
 
 
 
