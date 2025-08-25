@@ -137,7 +137,7 @@ Hijri_to_JD()
 
 
 
-
+/*
 Hijri_to_JD
 
 =LAMBDA(yy;mm;dd;     LET(         yy; IF(OR(ISBLANK(yy); yy=""); 1425; yy);         mm; IF(OR(ISBLANK(mm); mm=""); 1; mm);         dd; IF(OR(ISBLANK(dd); dd=""); 1; dd);                  nums; MID(patt; SEQUENCE(LEN(patt)); 1);         lens; MAP(nums; LAMBDA(ch; CHOOSE(MATCH(ch; {"a";"b";"c";"d"};0);31;30;29;28)));                  offset; (yy-1342)*12;         monthsums; IF(offset>0; DROP(TAKE(lens; offset); 12-mm); TAKE(DROP(lens; 12-mm); -offset));                  SUM(monthsums)+dd+23998     ) )
@@ -146,7 +146,7 @@ patt
 
 ="bbcbbcbbbdbbbccbcbcbcbcbcbcbcacbdbbcbccbbcbbccbbcccbbcbbcbbccbcbcbcbbccadbcbcbcbbbdabcbcbccbcbbcbbcbcbcccbbcbbcbcbcbcbcbcbcbbcbcbbccbcbcbcbbcbcadbcbcbcbcbbcbccbcbcbbccbcbcbcbcbcbcbbbbcbccbccbbcbbbcbccbccbcbcbcbcbcbcbbbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbbbc"&"bcbcbdbbbcbcbcbcbcbcbbbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbbbcbcbcbbcbbcbcbcbcbcbcbcbcbccbcbcbbbcbcbcbccbcbbcbcbcbcbcbcbbcbcbcbbccbbbcbcbcbccbbccbccbbbcbcbcbccbcbcbbcbbbcbcbcbcbcbccbcbcbcbcbcbbcbcbcbcbcbcbcbbcbccbcbcbcbbcbbccbcbcbcbbcbcbcbcbcbcbcbcbcbcbcbbc"&"cbcbbbcbbccbcbcbcbbccbcbcbcbcbbcbbcbcbcbcbcbcbcbcbcbcbbbcbcbcbbcbccbcbcbcbcbcbbccbcbcbcbcbbbcbcccbcbcbbbcbcbcbccbbcbcbbcbccbcbcbcbbbcbccbcbcbcbbcbcbcbcbcbcbcbbcbcbcbcbcbcbcbbcbbcbccbcbcbbcbcbcbccbcbcbbbcbcbccbcbcbbbcbcbccbccbbcbbbcbccbccbbcbbcbcbcbcbcbcbc"&"bbcbcbcbcbcbcbcbbcbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbccbbcbbbcbccbccbbcbbcbbccbccbcbbbcbcbcbccbcbbcbbcbcbcbccbcbbcbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbcbccbcbbbbcbccbcccbbbbcbbccbcccbbbcbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbbcbccbcbcbbcbbcbccbcbcbbcbb"&"cbccbccbbbcbbcbccbccbbcbbcbbccbcbcbcbcbbcbcbcbccbcbbbcbcbcbccbcbbcbbcbcbccbcbcbbcbbccbcbcbcbcbbcbcbcbcbcbcbcbbcbbccbcbccbbcbbbccbccbcbcbbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbcbcbcbcbcbbcbcbbccbcbcbcbbbcbccbccbcbbbcbbccbccbcbbbcbcbcbccbcbbcbbcbcbcc"&"bcbcbbcbbcbcbccbcbcbbcbbcbccbcbcbcbbbcbccbcbcbcbbbccbcbcbccbbbcbcbcbcbccbbcbcbbcbcbccbcbcbbbcbcbccbccbbcbbbcbccbccbbcbbbcbccbccbbcbbcbcbcbccbbcbcbbcbcbcbcbcbcbcbcbbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbccbbbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbcbcbccbbcbbcbbccbccbb"&"cbcbbbccbccbcbbcbbcbcbcbccbcbbcbcbbcbccbcbcbbcbbcbccbcbcbcbbbcbccbccbcbbbcbbccbccbcbbcbbbccbccbcbbcbbcbcbccbcbcbbcbcbbccbcbcbcbcbbcbbcbccbcbcbbcbbcbccbccbbcbbbcbccbccbbcbbcbbccbccbbcbcbbbccbcbcbcbcbbcbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbcbcbcbbc"&"bcbbccbcbcbcbbcbbccbcbccbbcbbbccbccbcbcbbbcbcbccbcbcbbbcbcbccbcbcbbcbbccbcbcbcbcbbcbcbcbcbcbcbcbcbbcbbccbccbcbb"
 
-
+*/
 
 
 
