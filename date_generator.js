@@ -136,18 +136,16 @@ Hijri_to_JD()
 
 
 
+
+
 Hijri_to_JD
-  
-  =LAMBDA(y,m,d,
-    LET(
-        ds6, "bbcbbcbbbdbbbccbcbcbcbcbcbcbcacbdbbcbccbbcbbccbbcccbbcbbcbbccbcbcbcbbccadbcbcbcbbbdabcbcbccbcbbcbbcbcbcccbbcbbcbcbcbcbcbcbcbbcbcbbccbcbcbcbbcbcadbcbcbcbcbbcbccbcbcbbccbcbcbcbcbcbcbbbbcbccbccbbcbbbcbccbccbcbcbcbcbcbcbbbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbbbcbcbcbdbbbcbcbcbcbcbcbbbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbbbcbcbcbbcbbcbcbcbcbcbcbcbcbccbcbcbbbcbcbcbccbcbbcbcbcbcbcbcbbcbcbcbbccbbbcbcbcbccbbccbccbbbcbcbcbccbcbcbbcbbbcbcbcbcbcbccbcbcbcbcbcbbcbcbcbcbcbcbcbbcbccbcbcbcbbcbbccbcbcbcbbcbcbcbcbcbcbcbcbcbcbcbbccbcbbbcbbccbcbcbcbbccbcbcbcbcbbcbbcbcbcbcbcbcbcbcbcbcbbbcbcbcbbcbccbcbcbcbcbcbbccbcbcbcbcbbbcbcccbcbcbbbcbcbcbccbbcbcbbcbccbcbcbcbbbcbccbcbcbcbbcbcbcbcbcbcbcbbcbcbcbcbcbcbcbbcbbcbccbcbcbbcbcbcbccbcbcbbbcbcbccbcbcbbbcbcbccbccbbcbbbcbccbccbbcbbcbcbcbcbcbcbcbbcbcbcbcbcbcbcbbcbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbccbbcbbbcbccbccbbcbbcbbccbccbcbbbcbcbcbccbcbbcbbcbcbcbccbcbbcbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbcbccbcbbbbcbccbcccbbbbcbbccbcccbbbcbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbbcbccbcbcbbcbbcbccbcbcbbcbbcbccbccbbbcbbcbccbccbbcbbcbbccbcbcbcbcbbcbcbcbccbcbbbcbcbcbccbcbbcbbcbcbccbcbcbbcbbccbcbcbcbcbbcbcbcbcbcbcbcbbcbbccbcbccbbcbbbccbccbcbcbbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbcbcbcbcbcbbcbcbbccbcbcbcbbbcbccbccbcbbbcbbccbccbcbbbcbcbcbccbcbbcbbcbcbccbcbcbbcbbcbcbccbcbcbbcbbcbccbcbcbcbbbcbccbcbcbcbbbccbcbcbccbbbcbcbcbcbccbbcbcbbcbcbccbcbcbbbcbcbccbccbbcbbbcbccbccbbcbbbcbccbccbbcbbcbcbcbccbbcbcbbcbcbcbcbcbcbcbcbbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbccbbbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbcbcbccbbcbbcbbccbccbbcbcbbbccbccbcbbcbbcbcbcbccbcbbcbcbbcbccbcbcbbcbbcbccbcbcbcbbbcbccbccbcbbbcbbccbccbcbbcbbbccbccbcbbcbbcbcbccbcbcbbcbcbbccbcbcbcbcbbcbbcbccbcbcbbcbbcbccbccbbcbbbcbccbccbbcbbcbbccbccbbcbcbbbccbcbcbcbcbbcbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbbccbcbcbcbbcbbccbcbccbbcbbbccbccbcbcbbbcbcbccbcbcbbbcbcbccbcbcbbcbbccbcbcbcbcbbcbcbcbcbcbcbcbcbbcbbccbccbcbb",
-        n, MAX(0, (y - 1342) * 12 + m - 1),
-        chars, IF(n = 0, "", MID(ds6, SEQUENCE(1, n, 1, 1), 1)),
-        days, IF(n = 0, 0, SWITCH(chars, "a", 31, "b", 30, "c", 29, "d", 28, 0)),
-        total_days, SUM(days),
-        total_days + d + 23999 - 1
-    )
-)
+
+=LAMBDA(yy;mm;dd;     LET(         yy; IF(OR(ISBLANK(yy); yy=""); 1425; yy);         mm; IF(OR(ISBLANK(mm); mm=""); 1; mm);         dd; IF(OR(ISBLANK(dd); dd=""); 1; dd);                  nums; MID(patt; SEQUENCE(LEN(patt)); 1);         lens; MAP(nums; LAMBDA(ch; CHOOSE(MATCH(ch; {"a";"b";"c";"d"};0);31;30;29;28)));                  offset; (yy-1342)*12;         monthsums; IF(offset>0; DROP(TAKE(lens; offset); 12-mm); TAKE(DROP(lens; 12-mm); -offset));                  SUM(monthsums)+dd+23998     ) )
+
+patt
+
+="bbcbbcbbbdbbbccbcbcbcbcbcbcbcacbdbbcbccbbcbbccbbcccbbcbbcbbccbcbcbcbbccadbcbcbcbbbdabcbcbccbcbbcbbcbcbcccbbcbbcbcbcbcbcbcbcbbcbcbbccbcbcbcbbcbcadbcbcbcbcbbcbccbcbcbbccbcbcbcbcbcbcbbbbcbccbccbbcbbbcbccbccbcbcbcbcbcbcbbbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbbbc"&"bcbcbdbbbcbcbcbcbcbcbbbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbbbcbcbcbbcbbcbcbcbcbcbcbcbcbccbcbcbbbcbcbcbccbcbbcbcbcbcbcbcbbcbcbcbbccbbbcbcbcbccbbccbccbbbcbcbcbccbcbcbbcbbbcbcbcbcbcbccbcbcbcbcbcbbcbcbcbcbcbcbcbbcbccbcbcbcbbcbbccbcbcbcbbcbcbcbcbcbcbcbcbcbcbcbbc"&"cbcbbbcbbccbcbcbcbbccbcbcbcbcbbcbbcbcbcbcbcbcbcbcbcbcbbbcbcbcbbcbccbcbcbcbcbcbbccbcbcbcbcbbbcbcccbcbcbbbcbcbcbccbbcbcbbcbccbcbcbcbbbcbccbcbcbcbbcbcbcbcbcbcbcbbcbcbcbcbcbcbcbbcbbcbccbcbcbbcbcbcbccbcbcbbbcbcbccbcbcbbbcbcbccbccbbcbbbcbccbccbbcbbcbcbcbcbcbcbc"&"bbcbcbcbcbcbcbcbbcbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbccbbcbbbcbccbccbbcbbcbbccbccbcbbbcbcbcbccbcbbcbbcbcbcbccbcbbcbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbcbccbcbbbbcbccbcccbbbbcbbccbcccbbbcbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbbcbccbcbcbbcbbcbccbcbcbbcbb"&"cbccbccbbbcbbcbccbccbbcbbcbbccbcbcbcbcbbcbcbcbccbcbbbcbcbcbccbcbbcbbcbcbccbcbcbbcbbccbcbcbcbcbbcbcbcbcbcbcbcbbcbbccbcbccbbcbbbccbccbcbcbbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbcbcbcbcbcbbcbcbbccbcbcbcbbbcbccbccbcbbbcbbccbccbcbbbcbcbcbccbcbbcbbcbcbcc"&"bcbcbbcbbcbcbccbcbcbbcbbcbccbcbcbcbbbcbccbcbcbcbbbccbcbcbccbbbcbcbcbcbccbbcbcbbcbcbccbcbcbbbcbcbccbccbbcbbbcbccbccbbcbbbcbccbccbbcbbcbcbcbccbbcbcbbcbcbcbcbcbcbcbcbbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbccbbbbcbcbccbcbcbbcbbcbccbcbcbcbbcbcbcbcbccbbcbbcbbccbccbb"&"cbcbbbccbccbcbbcbbcbcbcbccbcbbcbcbbcbccbcbcbbcbbcbccbcbcbcbbbcbccbccbcbbbcbbccbccbcbbcbbbccbccbcbbcbbcbcbccbcbcbbcbcbbccbcbcbcbcbbcbbcbccbcbcbbcbbcbccbccbbcbbbcbccbccbbcbbcbbccbccbbcbcbbbccbcbcbcbcbbcbcbcbccbcbbcbbcbcbccbcbcbbbcbcbccbcbcbbcbbcbccbcbcbcbbc"&"bcbbccbcbcbcbbcbbccbcbccbbcbbbccbccbcbcbbbcbcbccbcbcbbbcbcbccbcbcbbcbbccbcbcbcbcbbcbcbcbcbcbcbcbcbbcbbccbccbcbb"
+
 
 
 
