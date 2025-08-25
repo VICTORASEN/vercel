@@ -8,7 +8,7 @@ return Array.from({length:12},(_,i2)=>Array.from({length:[31,l,31,30,31,30,31,31
 }
 
 function gregorian_julian_day(y=2025,m=1,d=1){ return BigInt((BigInt(y)-1n)/400n)*146097n+ (Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001') .slice(0,Number(((BigInt(y)-1n)-(400n*BigInt((BigInt(y)-1n)/400n))))) .split('').map(e=>Number(e)?366n:365n).reduce((p,e)=>p+e,0n)+ BigInt((isLeapYear(y)==1?366:365)-get_calender(y).slice(m-1).flat().slice(d-1).length)+ 1n }
-gregorian_days();
+gregorian_julian_day();
 
 function gregorian_from_julian_day(n){ n = BigInt(n); let k = n-1n; let q = k/146097n; let r = k%146097n; let y=0; let pat=(Array(4).fill('0001'.repeat(24)).join('0000').slice(0,-1)+'10001').split(''); for(let i=0;i<400;i++){ let days = pat[i]=='1'?366:365; if(r<days){break;} r-=BigInt(days);y++; } y += Number(q*400n)+1; let l = pat[(y-1)%400]=='1'?29:28; let mdays=[31,l,31,30,31,30,31,31,30,31,30,31]; let m=0; for(;m<12;m++){ if(r<BigInt(mdays[m])) break; r-=BigInt(mdays[m]); } let d=Number(r)+1; return [y,m+1,d]; }
 
